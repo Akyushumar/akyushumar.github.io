@@ -8,8 +8,8 @@
     <pre>
         <code>
 
-#include&ltstdio.h&gt
-#include&ltmath.h&gt
+#include<stdio.h>
+#include<math.h>
 
 //Defining a function to check the length of the line segment formed any two points .
 
@@ -39,35 +39,50 @@ int main(){
         scanf("%lf%lf",&x[i],&y[i]);
     }
 
-    double lar;
+//Longest and shortest line segment.
+
+    double lar, x11, x12, y11, y12;
     for(i=0;i&ltn;i++){
         for(j=i+1;j&ltn;j++){
             k=i+j;
             ls[k] = line(x[i],x[j],y[i],y[j]);
-            printf("The distance ((%lf,%lf),(%lf,%lf)) is: %lf\n",x[i],y[i],x[j],y[j],ls[k]);
-            if(ls[k]>lar) lar=ls[k];
+            if(ls[k]>lar){
+                lar=ls[k];
+                x11=x[i];
+                x12=x[j];
+                y11=y[i];
+                y12=y[j];
+            }
         }
     }
 
-    double shor=lar;
+    double shor=lar, x21, x22, y21, y22;
     for(i=0;i&ltn;i++){
         for(j=i+1;j&ltn;j++){
             k=i+j;
             ls[k] = line(x[i],x[j],y[i],y[j]);
-            if(ls[k]&ltshor) shor=ls[k];
+            if(ls[k]&ltshor){
+                shor=ls[k];
+                x21=x[i];
+                x22=x[j];
+                y21=y[i];
+                y22=y[j];
+            }
         }
     }
-
-    printf("%lf\n",lar);
-    printf("%lf\n",shor);
 
     printf("Enter the number of query points:\n");
     scanf("%d",&m);
 
     printf("Enter the query points(p[i],q[i]):\n");
-    for(i=0;";i++){
-        scanf("%lf%lf&quot,&p[i],&q[i]);
+    for(i=0;i&ltm;i++){
+        scanf("%lf%lf",&p[i],&q[i]);
     }
+
+//Ouptput 1
+    
+    printf("The longest line segment is ((%lf,%lf),(%lf,%lf)) with a length of %lf.\n",x11,y11,x12,y12,lar);
+    printf("The shortest line segment is ((%lf,%lf),(%lf,%lf)) with a length of %lf.\n",x21,y21,x22,y22,shor);
 
 //Checking whether query point is a member of the list of 2-D coordinate points.
 
@@ -85,11 +100,11 @@ int main(){
     
     for(l=0;l&ltm;l++){
         if((p[l]==999)&&(q[l]==999)){
-            printf("Exiting\n");
+            printf("Exiting..\n");
             break;
         }
         else if(check[l]==0){
-            printf("The point is a member of the list");
+            printf("The point is a member of the list.");
             break;
         }
         else{    
@@ -98,23 +113,26 @@ int main(){
                 for(j=i+1;j&ltn;j++){
                     k=i+j;
                     ds[k] = dist(x[i],y[i],x[j],y[j],p[l],q[l]);
-                    printf("%lf\n",ds[k]);
                     if(ds[k]>long_p) long_p=ds[k];
                 }
             }
-            printf("%lf\n",long_p);
 
-            double shor_p=long_p;
+            double x1, x2, y1, y2, shor_p=long_p;
             k=l*100;
             for(i=0;i&ltn;i++){
                 for(j=i+1;j&ltn;j++){
                 ds[k] = dist(x[i],y[i],x[j],y[j],p[l],q[l]);
-                printf("%lf\n",ds[k]);
-              if(ds[k]&ltshor_p) shor_p=ds[k];
+                if(ds[k]&ltshor_p){ 
+                shor_p=ds[k];
+                x1=x[i];
+                x2=x[j];
+                y1=y[i];
+                y2=y[j];
+              }
                 k++;
                 }
             }
-            printf("%lf\n",shor_p);
+            printf("The closest line segment is ((%lf,%lf),(%lf,%lf)) for query point (%lf,%lf) with a distance of %lf.\n",x1,y1,x2,y2,p[l],q[l],shor_p);
         }
     }
 
