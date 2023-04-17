@@ -8,8 +8,8 @@
     <pre>
         <code>
 
-#include<stdio.h>
-#include<math.h>
+#include&ltstdio.h&gt
+#include&ltmath.h&gt
 
 //Defining a function to check the length of the line segment formed any two points .
 
@@ -35,13 +35,13 @@ int main(){
     scanf("%d",&n);
 
     printf("Enter the points(x[i],y[i]):\n");
-    for(i=0;i<n;i++){
+    for(i=0;i&ltn;i++){
         scanf("%lf%lf",&x[i],&y[i]);
     }
 
     double lar;
-    for(i=0;i<n;i++){
-        for(j=i+1;j<n;j++){
+    for(i=0;i&ltn;i++){
+        for(j=i+1;j&ltn;j++){
             k=i+j;
             ls[k] = line(x[i],x[j],y[i],y[j]);
             printf("The distance ((%lf,%lf),(%lf,%lf)) is: %lf\n",x[i],y[i],x[j],y[j],ls[k]);
@@ -50,11 +50,11 @@ int main(){
     }
 
     double shor=lar;
-    for(i=0;i<n;i++){
-        for(j=i+1;j<n;j++){
+    for(i=0;i&ltn;i++){
+        for(j=i+1;j&ltn;j++){
             k=i+j;
             ls[k] = line(x[i],x[j],y[i],y[j]);
-            if(ls[k]<shor) shor=ls[k];
+            if(ls[k]&ltshor) shor=ls[k];
         }
     }
 
@@ -65,16 +65,16 @@ int main(){
     scanf("%d",&m);
 
     printf("Enter the query points(p[i],q[i]):\n");
-    for(i=0;i<m;i++){
-        scanf("%lf%lf",&p[i],&q[i]);
+    for(i=0;";i++){
+        scanf("%lf%lf&quot,&p[i],&q[i]);
     }
 
 //Checking whether query point is a member of the list of 2-D coordinate points.
 
     int check[m];
 
-    for(l=0;l<m;l++){
-        for(i=0;i<n;i++){
+    for(l=0;l&ltm;l++){
+        for(i=0;i&ltn;i++){
             if(p[l]==x[i] && q[l]==y[i]){
                 check[l]=0;
                 break;
@@ -83,7 +83,7 @@ int main(){
         }
     }
     
-    for(l=0;l<m;l++){
+    for(l=0;l&ltm;l++){
         if((p[l]==999)&&(q[l]==999)){
             printf("Exiting\n");
             break;
@@ -94,8 +94,8 @@ int main(){
         }
         else{    
             double long_p;
-            for(i=0;i<n;i++){
-                for(j=i+1;j<n;j++){
+            for(i=0;i&ltn;i++){
+                for(j=i+1;j&ltn;j++){
                     k=i+j;
                     ds[k] = dist(x[i],y[i],x[j],y[j],p[l],q[l]);
                     printf("%lf\n",ds[k]);
@@ -106,11 +106,11 @@ int main(){
 
             double shor_p=long_p;
             k=l*100;
-            for(i=0;i<n;i++){
-                for(j=i+1;j<n;j++){
+            for(i=0;i&ltn;i++){
+                for(j=i+1;j&ltn;j++){
                 ds[k] = dist(x[i],y[i],x[j],y[j],p[l],q[l]);
                 printf("%lf\n",ds[k]);
-              if(ds[k]<shor_p) shor_p=ds[k];
+              if(ds[k]&ltshor_p) shor_p=ds[k];
                 k++;
                 }
             }
