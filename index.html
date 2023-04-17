@@ -1,1 +1,112 @@
-Hello World!
+#include<stdio.h>
+#include<math.h>
+
+//Defining a function to check the length of the line segment formed any two points .
+
+double line(double a, double b, double c, double d){
+    double z=sqrt(pow(b-a,2)+pow(d-c,2));
+    return z;
+}
+
+//Defining a function to check the perpendicular distance of any line segment from the query point.
+
+double dist(double x, double y, double a, double b, double p, double q){
+    double z= (fabs(((q-y)*(a-x))-((p-x)*(b-y))))/(sqrt(pow((a-x),2)+pow((b-y),2)));
+    return z;
+}
+
+int main(){
+    int m,n,i,j,k,l;
+    double x[1000], y[1000], ls[1000], ds[1000], p[1000], q[1000];
+
+//Number of elements in the list of 2-D coordinates.
+
+    printf("Enter the number of points:\n");
+    scanf("%d",&n);
+
+    printf("Enter the points(x[i],y[i]):\n");
+    for(i=0;i<n;i++){
+        scanf("%lf%lf",&x[i],&y[i]);
+    }
+
+    double lar;
+    for(i=0;i<n;i++){
+        for(j=i+1;j<n;j++){
+            k=i+j;
+            ls[k] = line(x[i],x[j],y[i],y[j]);
+            printf("The distance ((%lf,%lf),(%lf,%lf)) is: %lf\n",x[i],y[i],x[j],y[j],ls[k]);
+            if(ls[k]>lar) lar=ls[k];
+        }
+    }
+
+    double shor=lar;
+    for(i=0;i<n;i++){
+        for(j=i+1;j<n;j++){
+            k=i+j;
+            ls[k] = line(x[i],x[j],y[i],y[j]);
+            if(ls[k]<shor) shor=ls[k];
+        }
+    }
+
+    printf("%lf\n",lar);
+    printf("%lf\n",shor);
+
+    printf("Enter the number of query points:\n");
+    scanf("%d",&m);
+
+    printf("Enter the query points(p[i],q[i]):\n");
+    for(i=0;i<m;i++){
+        scanf("%lf%lf",&p[i],&q[i]);
+    }
+
+//Checking whether query point is a member of the list of 2-D coordinate points.
+
+    int check[m];
+
+    for(l=0;l<m;l++){
+        for(i=0;i<n;i++){
+            if(p[l]==x[i] && q[l]==y[i]){
+                check[l]=0;
+                break;
+            }
+            else check[l]=1;   
+        }
+    }
+    
+    for(l=0;l<m;l++){
+        if((p[l]==999)&&(q[l]==999)){
+            printf("Exiting\n");
+            break;
+        }
+        else if(check[l]==0){
+            printf("The point is a member of the list");
+            break;
+        }
+        else{    
+            double long_p;
+            for(i=0;i<n;i++){
+                for(j=i+1;j<n;j++){
+                    k=i+j;
+                    ds[k] = dist(x[i],y[i],x[j],y[j],p[l],q[l]);
+                    printf("%lf\n",ds[k]);
+                    if(ds[k]>long_p) long_p=ds[k];
+                }
+            }
+            printf("%lf\n",long_p);
+
+            double shor_p=long_p;
+            k=l*100;
+            for(i=0;i<n;i++){
+                for(j=i+1;j<n;j++){
+                ds[k] = dist(x[i],y[i],x[j],y[j],p[l],q[l]);
+                printf("%lf\n",ds[k]);
+              if(ds[k]<shor_p) shor_p=ds[k];
+                k++;
+                }
+            }
+            printf("%lf\n",shor_p);
+        }
+    }
+
+    return 0;
+}s
