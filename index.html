@@ -5,11 +5,13 @@
 </head>
 <body>
     <div>
+        <code>
         <p>#include <stdio.h> #include <math.h></p>
 
         <p>void split_real_number(double num, int* w_p, double* f_p) {  // Getting the absolute value of the input number  double abs_num = fabs(num);    // Getting the whole number part by truncating the absolute value  *w_p = (int) abs_num;    // Getting the fractional part by subtracting the whole number part from the absolute value  *f_p = abs_num - *w_p; }</p>
 
         <p>int main() {  int N;  printf(&quot;Enter the number of real numbers to read: &quot;);  scanf(&quot;%d&quot;, &amp;N);    double num, f_p;  int w_p, w_sum = 0;  double f_sum = 0.0;    for (int i = 0; i < N; i++) {  printf(&quot;Enter a real number: &quot;);  scanf(&quot;%lf&quot;, &amp;num);    split_real_number(num, &amp;w_p, &amp;f_p);  w_sum += w_p;  f_sum += f_p;  }    printf(&quot;Sum of whole number parts: %d\n&quot;, w_sum);  printf(&quot;Sum of fractional parts: %lf\n&quot;, f_sum);    return 0; }</p>
+        </code>
     </div>
 </body>
 </html> 
