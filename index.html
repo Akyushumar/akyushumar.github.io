@@ -1,41 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Code3a</title>
+<title>Code6</title>
 </head>
 <body>
-    <div>
-        <p>Code a</p>
-        <p>#include &lt;stdio.h&gt;</p>
-<p>#include &lt;math.h&gt;</p>
-<p>void split_real_number(double num, int* w_p, double* f_p) {&nbsp;</p>
-<p>// Getting the absolute value of the input number&nbsp;</p>
-<p>double abs_num = fabs(num);&nbsp;</p>
-<p>// Getting the whole number part by truncating the absolute value&nbsp;</p>
-<p>*w_p = (int) abs_num;&nbsp;</p>
-<p>// Getting the fractional part by subtracting the whole number part from the absolute value&nbsp;</p>
-<p>*f_p = abs_num - *w_p;&nbsp;</p>
-<p>}&nbsp;</p>
-<p>int main() {</p>
-<p>&nbsp;int N;&nbsp;</p>
-<p>printf(&quot;Enter the number of real numbers to read: &quot;);&nbsp;</p>
-<p>scanf(&quot;%d&quot;, &amp;N);&nbsp;</p>
-<p>double num, f_p;&nbsp;</p>
-<p>int w_p, w_sum = 0;&nbsp;</p>
-<p>double f_sum = 0.0;&nbsp;</p>
-<p>for (int i = 0; i &lt; N; i++) {&nbsp;</p>
-<p>printf(&quot;Enter a real number: &quot;);&nbsp;</p>
-<p>scanf(&quot;%lf&quot;, &amp;num);&nbsp;</p>
-<p>split_real_number(num, &amp;w_p, &amp;f_p);&nbsp;</p>
-<p>w_sum += w_p;&nbsp;</p>
-<p>f_sum += f_p;&nbsp;</p>
-<p>}&nbsp;</p>
-<p>printf(&quot;Sum of whole number parts: %d\n&quot;, w_sum);&nbsp;</p>
-<p>printf(&quot;Sum of fractional parts: %lf\n&quot;, f_sum);&nbsp;</p>
-<p>return 0;&nbsp;</p>
-<p>}</p>
-    </div>
-    <p>Code b</p>
-<div>#include&nbsp;&lt;stdio.h&gt;<br>#include &lt;math.h&gt;<br>#include &lt;string.h&gt;<br>// Function to encrypt the given string using the key<br>void encrypt(char* s1, char* s2, int K) {<br>&nbsp; &nbsp; int len1 = strlen(s1);<br>&nbsp; &nbsp; int len2 = strlen(s2);<br>&nbsp; &nbsp; int k_digits = floor(log10(abs(K))) + 1; // Calculate the number of digits in K<br>&nbsp; &nbsp; for (int i = 0, j = 0; i &lt; len1; i++) {<br>&nbsp; &nbsp; &nbsp; &nbsp; char c = s1[i];<br>&nbsp; &nbsp; &nbsp; &nbsp; int shift = (K / (int)pow(10, j % k_digits)) % 10; // Extract the digit from K<br>&nbsp; &nbsp; &nbsp; &nbsp; if (isalpha(c)) {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (isupper(c)) {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s2[i] = &apos;A&apos; + ((c - &apos;A&apos; + shift) % 26);<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } else {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s2[i] = &apos;a&apos; + ((c - &apos;a&apos; + shift) % 26);<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br>&nbsp; &nbsp; &nbsp; &nbsp; } else {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s2[i] = c;<br>&nbsp; &nbsp; &nbsp; &nbsp; }<br>&nbsp; &nbsp; &nbsp; &nbsp; j++;<br>&nbsp; &nbsp; }<br>&nbsp; &nbsp; s2[len1] = &apos;\0&apos;;<br>}<br>// Function to decrypt the given string using the key<br>void decrypt(char* s1, char* s2, int K) {<br>&nbsp; &nbsp; int len1 = strlen(s1);<br>&nbsp; &nbsp; int len2 = strlen(s2);<br>&nbsp; &nbsp; int k_digits = floor(log10(abs(K))) + 1; // Calculate the number of digits in K<br>&nbsp; &nbsp; for (int i = 0, j = 0; i &lt; len1; i++) {<br>&nbsp; &nbsp; &nbsp; &nbsp; char c = s1[i];<br>&nbsp; &nbsp; &nbsp; &nbsp; int shift = (K / (int)pow(10, j % k_digits)) % 10; // Extract the digit from K<br>&nbsp; &nbsp; &nbsp; &nbsp; if (isalpha(c)) {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (isupper(c)) {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s2[i] = &apos;A&apos; + ((c - &apos;A&apos; - shift + 26) % 26);<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } else {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s2[i] = &apos;a&apos; + ((c - &apos;a&apos; - shift + 26) % 26);<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br>&nbsp; &nbsp; &nbsp; &nbsp; } else {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; s2[i] = c;<br>&nbsp; &nbsp; &nbsp; &nbsp; }<br>&nbsp; &nbsp; &nbsp; &nbsp; j++;<br>&nbsp; &nbsp; }<br>&nbsp; &nbsp; s2[len1] = &apos;\0&apos;;<br>}<br><br>int main() {<br>&nbsp; &nbsp; char sentence[1000];<br>&nbsp; &nbsp; char encrypted[1000];<br>&nbsp; &nbsp; char decrypted[1000];<br>&nbsp; &nbsp; int K;<br>&nbsp; &nbsp; printf(&quot;Enter a sentence to encrypt: &quot;);<br>&nbsp; &nbsp; fgets(sentence, sizeof(sentence), stdin);<br>&nbsp; &nbsp; sentence[strcspn(sentence, &quot;\n&quot;)] = &apos;\0&apos;; // Remove newline character<br>&nbsp; &nbsp; printf(&quot;Enter an encryption key: &quot;);<br>&nbsp; &nbsp; scanf(&quot;%d&quot;, &amp;K);<br>&nbsp; &nbsp; getchar(); // Remove newline character from input buffer<br>&nbsp; &nbsp; // Encrypt the sentence and print the result<br>&nbsp; &nbsp; encrypt(sentence, encrypted, K);<br>&nbsp; &nbsp; printf(&quot;Encrypted sentence: %s\n&quot;, encrypted);<br>&nbsp; &nbsp; // Decrypt the encrypted sentence and print the result<br>&nbsp; &nbsp; decrypt(encrypted, decrypted, K);<br>&nbsp; &nbsp; printf(&quot;Decrypted sentence: %s\n&quot;, decrypted);<br>&nbsp; &nbsp; return 0;<br>}</div>
+    <p>Code 6a</p>
+    <div style="margin: 5px 0;">
+  <div style="margin: 5px 0;">&lt;!DOCTYPE html&gt;<br />&lt;html&gt;<br /> &lt;head&gt;<br /> &lt;title&gt;Codebeautify.org Text to HTML Converter&lt;/title&gt;<br /> &lt;/head&gt;<br /> &lt;body&gt;<br /> &lt;p&gt;//Ayush Kumar <br />//22AR10002 <br />//Assignment 6(a) <br />#include <br /> &lt;stdio.h&gt; <br />#include <br /> &lt;math.h&gt; <br /> <br /> <br />int getKeyValue(int A[], int n, int key_val, int *pos){ <br /> for(int i = 0; i &lt; n; i++){ <br /> if(key_val == A[i]){ <br /> *pos = i+1; <br /> return 1; <br /> } <br /> } <br /> return 0; <br />} <br /> <br /> <br />int main() <br />{ <br /> //Getting the number of arguments. <br /> int n; <br /> printf("Enter the number of integers:\n"); <br /> scanf("%d",&amp;n); <br /> <br /> //Getting the array of integers. <br /> int A[n]; <br /> printf("Input the array of integers:\n"); <br /> for(int i = 0; i &lt; n; i++){ <br /> scanf("%d",&amp;A[i]); <br /> } <br /> <br /> //Checking for the key value in the array of integers. <br /> int pos = 0, counter = 0, m = n; <br /> while(counter &lt;= m){ <br /> int key_val; <br /> printf("Enter Key value:\n"); <br /> scanf("%d",&amp;key_val); <br /> if(getKeyValue(A, n, key_val, &amp;pos)){ <br /> printf("The key %d is present at position %d\n", key_val, pos); <br /> //Reducing array size. <br /> for (int i = pos; i &lt; n - 1; i++) { <br /> A[i] = A[i + 1]; <br /> } <br /> n--; <br /> } <br /> else{ <br /> printf("The key is not present in the array.\n"); <br /> counter++; <br /> } <br /> if(n == 0){ <br /> printf("The array becomes empty.\n"); <br /> break; <br /> } <br /> if(counter == m){ <br /> printf("The number of failure equals the input size.\n"); <br /> break; <br /> } <br /> } <br /> <br /> return 0; <br />}</div>
+  <div style="margin: 5px 0;">&lt;/p&gt;<br /> &lt;/body&gt;<br /> &lt;/html&gt;</div>
+</div>
+</br>
+</br>
+<p>Code 6b</p>
+<div style="margin: 5px 0;">
+  <div style="margin: 5px 0;">//Ayush Kumar<br />//22AR10002<br />//Assignment 6(b)</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">#include &lt;stdio.h&gt;<br />#include &lt;stdlib.h&gt;<br />#include &lt;math.h&gt;</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">//Function for dynamically allocating a 2D array of real numbers of size RxC.</div>
+  <div style="margin: 5px 0;">double **Allocate_2D_Array(int R, int C) {<br /> double **arr = (double **)malloc(R * sizeof(double *));<br /> for (int i = 0; i &lt; R; i++) {<br /> arr[i] = (double *)malloc(C * sizeof(double));<br /> }<br /> return arr;<br />}</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">//Function for reading a 2D array of real numbers of size RxC.</div>
+  <div style="margin: 5px 0;">void Read_2D_Array(double** A, int R, int C){<br /> for(int i=0; i&lt;R; i++){<br /> for(int j=0; j&lt;C; j++){<br /> scanf("%lf", &amp;A[i][j]);<br /> }<br /> }<br /> printf("\n");<br />}</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">//Function for printing a 2D array of real numbers of size RxC.</div>
+  <div style="margin: 5px 0;">void Print_2D_Array(double** A, int R, int C){<br /> for(int i=0; i&lt;R; i++){<br /> for(int j=0; j&lt;C; j++){<br /> printf("%lf ", A[i][j]);<br /> }<br /> printf("\n");<br /> }<br /> printf("\n");<br />}</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">//Function for freeing memory space of a dynamically allocated 2D array.</div>
+  <div style="margin: 5px 0;">void Free_2D_Array(double** A, int R){<br /> for(int i=0; i&lt;R; i++){<br /> free(A[i]);<br /> }<br /> free(A);<br />}</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">//Function for multiplying two matrices.</div>
+  <div style="margin: 5px 0;">double **Multiply_matrices(double **A1, int R1, int C1, double **A2, int R2, int C2) {<br /> if (C1 != R2) {<br /> return NULL; //Matrices cannot be multiplied.<br /> }<br /> double **result = Allocate_2D_Array(R1, C2);<br /> for (int i = 0; i &lt; R1; i++) {<br /> for (int j = 0; j &lt; C2; j++) {<br /> result[i][j] = 0;<br /> for (int k = 0; k &lt; C1; k++) {<br /> result[i][j] += (A1[i][k] * A2[k][j]);<br /> }<br /> }<br /> }<br /> return result;<br />}</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">//Function for computing the trace of matrix.</div>
+  <div style="margin: 5px 0;">double Compute_trace(double** A, int R, int C){<br /> double trace=0;<br /> for(int i=0; i&lt;R; i++){<br /> for(int j=0; j&lt;C; j++){<br /> if(i==j) trace += A[i][j];<br /> }<br /> }<br /> return trace;<br />}</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">int main(){</div>
+  <div style="margin: 5px 0;">//Getting the number of matrices.</div>
+  <div style="margin: 5px 0;">int n; <br /> printf("Enter number of matrices to be defined:\n");<br /> scanf("%d",&amp;n);</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">//Allocater + Reader.</div>
+  <div style="margin: 5px 0;">int r[n],c[n];<br /> double ***super_matrix = (double***)malloc(n * sizeof(double**));</div>
+  <div style="margin: 5px 0;">for(int i=0; i&lt;n; i++){<br /> printf("For Martix %c:\n",(char)(i+65));<br /> //Getting the number of row(s) of the matrix.<br /> printf("Enter the number of rows:\n");<br /> scanf("%d",&amp;r[i]);<br /> //Getting the number of column(s) of the matrix.<br /> printf("Enter the number of columns:\n");<br /> scanf("%d",&amp;c[i]);<br /> //Allocating matrix.<br /> super_matrix[i] = Allocate_2D_Array(r[i],c[i]); <br /> //Reading matrix.<br /> printf("Enter matrix %c:\n",(char)(i+65));<br /> Read_2D_Array(super_matrix[i],r[i],c[i]);<br /> }</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">//Multiplying the matrices.<br /> <br /> int a[n],rr[n-1],cc[n-1]; <br /> for (int i = 0; i &lt; n; i++) {<br /> a[i] = n;<br /> }<br /> <br /> double ***super_R_matrix = (double***)malloc((n-1) * sizeof(double**));<br /> <br /> for(int i=0; i&lt;n; i++){<br /> for(int j=0; j&lt;n; j++){<br /> if(i!=j){<br /> if(Multiply_matrices(super_matrix[i],r[i],c[i],super_matrix[j],r[j],c[j]) == NULL) continue;<br /> else{<br /> super_R_matrix[0] = Multiply_matrices(super_matrix[i],r[i],c[i],super_matrix[j],r[j],c[j]);<br /> a[0]=i;<br /> a[1]=j;<br /> rr[0]=r[i];<br /> cc[0]=c[j];<br /> break;<br /> }<br /> }<br /> }<br /> }</div>
+  <div style="margin: 5px 0;">for(int i=0; i&lt;n-1; i++){<br /> for(int j=0; j&lt;n; j++){<br /> int flag=0;<br /> for(int k=0; k&lt;n; k++){<br /> if(a[k]==j) flag=1;<br /> }<br /> if(flag) break;<br /> if(Multiply_matrices(super_R_matrix[i],rr[i],cc[i],super_matrix[j],r[j],c[j]) != NULL){<br /> super_R_matrix[i+1] = Multiply_matrices(super_R_matrix[i],rr[i],cc[i],super_matrix[j],r[j],c[j]);<br /> a[i+2]=j;<br /> rr[i+1]=rr[i];<br /> cc[i+1]=c[j];<br /> break;<br /> }<br /> else continue;<br /> }<br /> }</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">//Printing the input matrices.</div>
+  <div style="margin: 5px 0;">for(int i=0; i&lt;n; i++){<br /> printf("Matrix %c:\n",(char)(i+65));<br /> Print_2D_Array(super_matrix[i],r[i],c[i]);<br /> }</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">//Printing the resultant matrix.<br /> printf("Resultant matrix:\n");<br /> Print_2D_Array(super_R_matrix[n-2],rr[n-2],cc[n-2]);</div>
+  <div style="margin: 5px 0;">//Calculating the trace of input matrices.</div>
+  <div style="margin: 5px 0;">for(int i=0; i&lt;n; i++){<br /> printf("The trace of Matrix %c is %lf\n",(char)(i+65),Compute_trace(super_matrix[i],r[i],c[i]));<br /> }</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">//Freeing input memeory.</div>
+  <div style="margin: 5px 0;">for(int i=0; i&lt;n; i++){<br /> Free_2D_Array(super_matrix[i],r[i]);<br /> }</div>
+  <div style="margin: 5px 0;">free(super_matrix);</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+  <div style="margin: 5px 0;">//Freeing output Matrix.</div>
+  <div style="margin: 5px 0;">for(int i=0; i&lt;(n-1); i++){<br /> Free_2D_Array(super_R_matrix[i],rr[i]);<br /> }</div>
+  <div style="margin: 5px 0;">free(super_R_matrix);<br /> return 0;</div>
+  <div style="margin: 5px 0;">}</div>
+  <div style="margin: 5px 0;">&nbsp;</div>
+</div>
 </body>
 </html> 
