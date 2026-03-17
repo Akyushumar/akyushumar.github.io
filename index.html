@@ -1,245 +1,698 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Code 7</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayush Kumar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --border: #1e1e1e;
+    --border-hover: #2e2e2e;
+    --text: #e8e6e0;
+    --muted: #666;
+    --accent: #c8b89a;
+    --accent-dim: #8a7a64;
+    --green: #4ade80;
+    --blue: #60a5fa;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'DM Mono', 'Courier New', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+  }
+
+  nav .inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    color: var(--muted);
+    transition: color 0.2s;
+    font-family: var(--mono);
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 140px 0 80px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-bio {
+    max-width: 560px;
+    color: #999;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-bio strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.2rem;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: var(--mono);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 500;
+  }
+
+  .btn-primary:hover { background: #d4c4aa; }
+
+  .btn-outline {
+    border: 1px solid var(--border-hover);
+    color: var(--muted);
+  }
+
+  .btn-outline:hover { border-color: var(--accent-dim); color: var(--text); }
+
+  /* ── SECTION HEADER ── */
+  .section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── PROJECT CARDS ── */
+  .projects-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .project-card {
+    background: var(--bg);
+    padding: 2rem;
+    transition: background 0.2s;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .project-card:hover { background: var(--surface); }
+
+  .project-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    background: rgba(200, 184, 154, 0.08);
+    color: var(--accent-dim);
+    border: 1px solid rgba(200, 184, 154, 0.15);
+    white-space: nowrap;
+    align-self: start;
+    margin-top: 4px;
+  }
+
+  .project-name {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+
+  .project-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  .project-desc {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    max-width: 520px;
+  }
+
+  .project-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--green);
+    margin-bottom: 1rem;
+  }
+
+  .project-stat::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .project-link {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent-dim);
+    border-bottom: 1px solid transparent;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .project-link:hover { color: var(--accent); border-bottom-color: var(--accent-dim); }
+
+  .project-link-arrow { font-size: 10px; opacity: 0.7; }
+
+  /* ── STACK PILLS ── */
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .pill {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    background: #161616;
+    border: 1px solid var(--border);
+    color: #666;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── ARCHITECTURE ── */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .arch-card {
+    background: var(--bg);
+    padding: 1.75rem;
+    transition: background 0.2s;
+  }
+
+  .arch-card:hover { background: var(--surface); }
+
+  .arch-number {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent-dim);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  .arch-name {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .arch-type {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  .arch-cta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .arch-cta p {
+    font-size: 14px;
+    color: #666;
+    max-width: 400px;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .about-text {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.85;
+  }
+
+  .about-text p + p { margin-top: 1rem; }
+
+  .about-text strong { color: var(--text); font-weight: 500; }
+
+  .skills-list { list-style: none; }
+
+  .skills-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .skills-list li:last-child { border-bottom: none; }
+
+  .skill-name { color: #888; font-family: var(--mono); font-size: 12px; }
+  .skill-val { color: var(--accent-dim); font-family: var(--mono); font-size: 12px; }
+
+  /* ── CONTACT ── */
+  .contact-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 60px 0;
+  }
+
+  .contact-text h2 {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-text p { font-size: 14px; color: var(--muted); }
+
+  .contact-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0;
+  }
+
+  footer .inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ── FADE IN ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero h1 { animation: fadeUp 0.7s ease both; }
+  .hero-bio { animation: fadeUp 0.7s 0.1s ease both; }
+  .hero-links { animation: fadeUp 0.7s 0.2s ease both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .project-card { grid-template-columns: 1fr; }
+    .arch-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-row { flex-direction: column; align-items: flex-start; }
+    .hero { padding: 110px 0 60px; }
+    .section { padding: 60px 0; }
+  }
+</style>
 </head>
 <body>
-<p>Code 7a</p>
-<div>
-<pre><code>//Ayush Kumar
-//22AR10002
-//Assignment7(a)
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
 
-// Function to dynamically allocate a 2D int array.
-int **allocate_array(int M, int N){
-    int **arr = (int **)malloc(M*sizeof(int *));
-    for(int i=0; i&lt;M; i++){
-        arr[i]=(int*)malloc(N*sizeof(int));
-    }
-    return arr;
-}
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <span class="nav-logo">ayush kumar</span>
+    <ul class="nav-links">
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#architecture">architecture</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
 
-// Function to read an image.
-int **read_image(int *M, int *N){
-    int row_size=0, column_size=0;
-
-    printf("Enter number of rows:\n");
-    scanf("%d",&amp;row_size);
-    printf("Enter number of columns:\n");
-    scanf("%d",&amp;column_size);
-
-    *M=row_size;
-    *N=column_size;
-
-    int **arr = allocate_array(row_size,column_size);
-
-    printf("Input Image:\n");
-    for(int i=0; i&lt;row_size; i++){
-        for(int j=0; j&lt;column_size; j++){
-            scanf("%d",&amp;arr[i][j]);
-        }
-    }
-
-    return arr;
-}
-
-void print_image(int **A, int M, int N){
-    for(int i=0; i&lt;M; i++){
-        for(int j=0; j&lt;N; j++){
-            printf("%d ",A[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-}
-
-int **get_boundary_image(int **A, int M, int N){
-    int **arr = allocate_array(M,N);
-    for(int i=0; i&lt;M; i++){
-        for(int j=0; j&lt;N; j++){
-
-            if(A[i][j]==1){
-                if((i&gt;0) &amp;&amp; A[i-1][j]==0){
-                    arr[i][j]=1;
-                }else if((i&lt;M-1) &amp;&amp; A[i+1][j]==0){
-                    arr[i][j]=1;
-                }else if((j&gt;0) &amp;&amp; A[i][j-1]==0){
-                    arr[i][j]=1;
-                }else if((j&lt;N-1) &amp;&amp; A[i][j+1]==0){
-                    arr[i][j]=1;
-                }else arr[i][j]=0;
-            }else arr[i][j]=0;
-        }
-    }
-    return arr;
-}
-
-int main()
-{
-    int M=0, N=0, **IMAGE = read_image(&amp;M,&amp;N);
-    print_image(IMAGE,M, N);
-    int **B_IMAGE = get_boundary_image(IMAGE,M,N);
-    print_image(B_IMAGE,M,N);
-
-    //Free Memory.
-    for (int i = 0; i &lt; M; i++) {
-        free(IMAGE[i]);
-        free(B_IMAGE[i]);
-    }
-    free(IMAGE);
-    free(B_IMAGE);
-
-    return 0;
-}</code></pre>
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <p class="hero-label">IIT Kharagpur · 2027</p>
+    <h1>Architect who<br>builds <em>AI tools.</em></h1>
+    <p class="hero-bio">
+      I'm a fourth-year <strong>B.Arch student at IIT Kharagpur</strong> with a micro-specialisation in AI.
+      I design buildings and I build software — the overlap between the two is where I find the most interesting problems.
+      Currently shipping ML projects and looking for internships at the intersection of architecture, data, and AI.
+    </p>
+    <div class="hero-links">
+      <a href="#projects" class="btn btn-primary">View projects ↓</a>
+      <a href="https://linkedin.com/in/akyushkumar" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+      <a href="https://github.com/Akyushumar" target="_blank" class="btn btn-outline">GitHub ↗</a>
+    </div>
+  </div>
 </div>
-</br>
-</br>
-<p>Code 7b</p>
-<div>
-<pre><code>//Ayush Kumar
-//22AR10002
-//Assignment7(b)
-#include &lt;stdio.h&gt;
-#include &lt;string.h&gt;
-#include &lt;stdlib.h&gt;
 
-#define MAX_STUDENTS 100
-#define MAX_NAME_LENGTH 50
+<!-- ML PROJECTS -->
+<div class="section" id="projects">
+  <div class="container">
+    <p class="section-label">ml / ai</p>
+    <h2 class="section-title">Deployed projects</h2>
 
-typedef struct{
-    int student_no;
-    int subject_no;
-    char** student;
-    int** table;
-}_MARKS;
+    <div class="projects-grid">
 
-//Defining function to allocate 2D char array to store student names and make program more memory efficient.
-void allocate_name_array(_MARKS* marks){
-    if(marks-&gt;student_no &lt;= MAX_STUDENTS){
-        marks-&gt;student = (char**)malloc(marks-&gt;student_no * sizeof(char*));
-        for(int i = 0; i &lt; marks-&gt;student_no; i++){
-            marks-&gt;student[i] = NULL; //Initializing to NULL as a precaution.
-        }
-    }
-    else exit(-1); //Appropriate action required.
-}
+      <!-- Echoes -->
+      <div class="project-card">
+        <div>
+          <div class="project-name">Echoes</div>
+          <div class="project-sub">Multilingual Voice Journaling Assistant</div>
+          <div class="stack">
+            <span class="pill">Python</span><span class="pill">Streamlit</span><span class="pill">Gemini 2.0</span><span class="pill">Sarvam AI</span><span class="pill">Whisper</span><span class="pill">VADER</span><span class="pill">SQLite</span>
+          </div>
+          <p class="project-desc">
+            Converts spoken thoughts into emotionally-tagged journal entries. Triple STT pipeline (Sarvam AI → OpenAI Whisper → Local Whisper) with triple emotion fallback. Benchmarked at 93.3% mood accuracy on English and 93.0% across 5 languages on 130 labelled samples.
+          </p>
+          <div class="project-stat">Live · akyushumar-echo.streamlit.app</div>
+          <div class="project-links">
+            <a href="https://akyushumar-echo.streamlit.app" target="_blank" class="project-link">Live demo <span class="project-link-arrow">↗</span></a>
+            <a href="https://github.com/Akyushumar/Echoes" target="_blank" class="project-link">GitHub <span class="project-link-arrow">↗</span></a>
+          </div>
+        </div>
+        <span class="project-tag">Deployed ✓</span>
+      </div>
 
-//Function to dynamically allocate a 2D int array of size MxN.
-void allocate_array(_MARKS* marks){
-    marks-&gt;table = (int**)malloc(marks-&gt;student_no * sizeof(int*));
-    for(int i = 0; i &lt; marks-&gt;student_no; i++){
-        marks-&gt;table[i] = (int*)malloc(marks-&gt;subject_no * sizeof(int));
-    }
-}
+      <!-- Feeling the Vibe -->
+      <div class="project-card">
+        <div>
+          <div class="project-name">Feeling the Vibe</div>
+          <div class="project-sub">Hybrid Song Emotion Analyser</div>
+          <div class="stack">
+            <span class="pill">Python</span><span class="pill">Pandas</span><span class="pill">RapidFuzz</span><span class="pill">Genius API</span><span class="pill">VADER</span><span class="pill">Plotly</span><span class="pill">Streamlit</span>
+          </div>
+          <p class="project-desc">
+            Maps the emotional fingerprint of any song by combining Spotify audio features (1.2M track dataset) with live lyrics sentiment analysis. Produces an interactive radar chart across six emotional dimensions. Engineered workaround for deprecated Spotify API.
+          </p>
+          <div class="project-stat">Live · feeling-the-vibe.streamlit.app</div>
+          <div class="project-links">
+            <a href="https://feeling-the-vibe-tmedmpx96pnxihue5zffig.streamlit.app" target="_blank" class="project-link">Live demo <span class="project-link-arrow">↗</span></a>
+            <a href="https://github.com/Akyushumar/Feeling-the-Vibe" target="_blank" class="project-link">GitHub <span class="project-link-arrow">↗</span></a>
+          </div>
+        </div>
+        <span class="project-tag">Deployed ✓</span>
+      </div>
 
-//Function to read number of students and subjects, and table of marks.
-void read_table(_MARKS* marks){
-    printf("Enter the number of students: ");
-    scanf("%d", &marks-&gt;student_no);
-    printf("Enter the number of subjects: ");
-    scanf("%d", &marks-&gt;subject_no);
-    getchar(); // consume the newline character left in the input buffer for the proper functioning of fgets.
+      <!-- MovieMind -->
+      <div class="project-card">
+        <div>
+          <div class="project-name">MovieMind</div>
+          <div class="project-sub">Content-Based Movie Recommender</div>
+          <div class="stack">
+            <span class="pill">Python</span><span class="pill">Scikit-learn</span><span class="pill">NLP</span><span class="pill">TF-IDF</span><span class="pill">TMDB API</span><span class="pill">Streamlit</span>
+          </div>
+          <p class="project-desc">
+            Recommends similar movies using TF-IDF vectorisation and cosine similarity on the TMDB 5000 dataset. Fetches live movie posters via the TMDB API. Managed a 177MB similarity matrix on Streamlit Cloud using Git LFS.
+          </p>
+          <div class="project-stat">Live · akyushumar-moviemind.streamlit.app</div>
+          <div class="project-links">
+            <a href="https://akyushumar-moviemind.streamlit.app" target="_blank" class="project-link">Live demo <span class="project-link-arrow">↗</span></a>
+            <a href="https://github.com/Akyushumar/MovieMind" target="_blank" class="project-link">GitHub <span class="project-link-arrow">↗</span></a>
+          </div>
+        </div>
+        <span class="project-tag">Deployed ✓</span>
+      </div>
 
-    allocate_name_array(marks);
-    allocate_array(marks);
-
-    for(int i = 0; i &lt; marks-&gt;student_no; i++){
-        char name[MAX_NAME_LENGTH + 1];
-        printf("Enter the name of Student %d: ", i+1);
-        fgets(name, sizeof(name), stdin);
-        size_t len = strcspn(name,"\n"); //Getting the length of name.
-        marks-&gt;student[i] = (char*)malloc((len + 1) * sizeof(char));
-        strncpy(marks-&gt;student[i], name, len); //Copying the name to allocated memory.
-        marks-&gt;student[i][len] = '\0'; //Add the null-terminating character.
-        //Taking marks of student as input.
-        printf("Enter the marks of the Student %d: \n", i+1);
-        for (int j = 0; j &lt; marks-&gt;subject_no; j++) {
-            printf("Enter marks for subject %d: ", j+1);
-            scanf("%d", &marks-&gt;table[i][j]);
-        }
-        printf("\n");
-        getchar();
-    }
-}
-
-//Function to print the table of marks for each student.
-void print_table(const _MARKS* marks){
-    printf("Student\t\t");
-    for(int i = 0; i &lt; marks-&gt;subject_no; i++) {
-        printf("Subject %d\t", i + 1);
-    }
-    printf("\n");
-    
-    for (int i = 0; i &lt; marks-&gt;student_no; i++) {
-        printf("%s\t\t", marks-&gt;student[i]);
-        for (int j = 0; j &lt; marks-&gt;subject_no; j++) {
-            printf("%d\t\t", marks-&gt;table[i][j]);
-        }
-        printf("\n");
-    }
-}
-
-//Function to get the total marks scored by a student.
-void get_total_marks(const _MARKS* input_marks, _MARKS* total_marks){
-    total_marks-&gt;student_no = input_marks-&gt;student_no;
-    total_marks-&gt;subject_no = input_marks-&gt;subject_no+1;
-
-    allocate_name_array(total_marks);
-    allocate_array(total_marks);
-
-    for(int i = 0; i &lt; input_marks-&gt;student_no; i++){
-        //Copying the name of the student.
-        size_t len = strlen(input_marks-&gt;student[i]);
-        total_marks-&gt;student[i] = (char*)malloc((len + 1) * sizeof(char));
-        strcpy(total_marks-&gt;student[i], input_marks-&gt;student[i]);
-
-        //Copying the marks of the student. 
-        for (int j = 0; j &lt; input_marks-&gt;subject_no; j++) {
-            total_marks-&gt;table[i][j] = input_marks-&gt;table[i][j];
-        }
-
-        //Calculating the total marks of the student.
-        int t_marks = 0;
-        for (int j = 0; j &lt; input_marks-&gt;subject_no; j++) {
-            t_marks += input_marks-&gt;table[i][j];
-        }
-
-        //Storing the total marks of the student in the output table.
-        total_marks-&gt;table[i][total_marks-&gt;subject_no - 1] = t_marks;
-    }
-}
-
-//Function to free memory.
-void deallocate_memory(_MARKS* marks){
-    for (int i = 0; i &lt; marks-&gt;student_no; i++) {
-        free(marks-&gt;table[i]);
-        free(marks-&gt;student[i]);
-    }
-    free(marks-&gt;table);
-    free(marks-&gt;student);
-}
-
-
-int main(){
-    _MARKS input_marks, total_marks;
-
-    printf("Enter the details of the input table:\n");
-    read_table(&amp;input_marks);
-
-    printf("\nInput Table:\n");
-    print_table(&amp;input_marks);
-
-    get_total_marks(&amp;input_marks, &amp;total_marks);
-
-    printf("\nOutput Table (with Total Marks as last Column):\n");
-    print_table(&amp;total_marks);
-
-    deallocate_memory(&amp;input_marks);
-    deallocate_memory(&amp;total_marks);
-    return 0;
-}</code></pre>
+    </div>
+  </div>
 </div>
+
+<!-- ARCHITECTURE -->
+<div class="section" id="architecture">
+  <div class="container">
+    <p class="section-label">architecture</p>
+    <h2 class="section-title">Selected works · 2022–2025</h2>
+
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="arch-number">01 · 2025</div>
+        <div class="arch-name">Mayura</div>
+        <div class="arch-type">Boutique Hotel · 5th Semester</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-number">02 · 2025</div>
+        <div class="arch-name">Imarkal</div>
+        <div class="arch-type">Residence for a Clay Artist · 5th Semester</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-number">03 · 2025</div>
+        <div class="arch-name">Ostara</div>
+        <div class="arch-type">Learning & Healing Centre, Nigeria · 6th Semester</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-number">04 · 2025</div>
+        <div class="arch-name">Garazia</div>
+        <div class="arch-type">Interior Design · Da Vinci · 6th Semester</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-number">05 · 2025</div>
+        <div class="arch-name">Gramyodyan</div>
+        <div class="arch-type">Thematic Boutique Restaurant · 6th Semester</div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-number">06 · 2025</div>
+        <div class="arch-name">Container Room</div>
+        <div class="arch-type">Professional Project · Force Power Infotech</div>
+      </div>
+    </div>
+
+    <div class="arch-cta">
+      <p>Full portfolio with renders, floor plans, sections, and design concepts available on request.</p>
+      <a href="mailto:akyushkumar@gmail.com?subject=Portfolio Request" class="btn btn-outline">Request portfolio ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="about">
+  <div class="container">
+    <p class="section-label">about</p>
+    <h2 class="section-title">Background</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm currently in my fourth year at <strong>IIT Kharagpur</strong>, studying Architecture with a micro-specialisation in Artificial Intelligence. I graduate in 2027.
+        </p>
+        <p>
+          My work sits at the boundary between spatial thinking and computational methods. Architecture trained me to reason about complex systems, constraints, and human experience — AI gives me a new set of tools to work with that reasoning.
+        </p>
+        <p>
+          I've shipped three deployed ML projects in the last few months. Before that, I was Design & Media Head at <strong>Kshitij</strong>, IIT KGP's techno-management fest — India's largest — where I led a 30+ member team across branding, content, and strategy.
+        </p>
+        <p>
+          I'm looking for internships in AEC tech, prop-tech, or computational design — anywhere both sides of my background are useful at the same time.
+        </p>
+      </div>
+      <div>
+        <ul class="skills-list">
+          <li><span class="skill-name">ML / AI</span><span class="skill-val">Python · TensorFlow · Scikit-learn</span></li>
+          <li><span class="skill-name">NLP</span><span class="skill-val">VADER · Whisper · Gemini API</span></li>
+          <li><span class="skill-name">Data</span><span class="skill-val">Pandas · SQL · Plotly · Streamlit</span></li>
+          <li><span class="skill-name">Architecture</span><span class="skill-val">Rhino · Revit · AutoCAD · SketchUp</span></li>
+          <li><span class="skill-name">Visualisation</span><span class="skill-val">Lumion · 3ds Max · V-Ray · Photoshop</span></li>
+          <li><span class="skill-name">Parametric</span><span class="skill-val">Grasshopper · Dynamo</span></li>
+          <li><span class="skill-name">Languages</span><span class="skill-val">English · Hindi</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="container">
+  <div class="contact-row" id="contact">
+    <div class="contact-text">
+      <h2>Get in touch</h2>
+      <p>Open to internships, collaborations, and interesting problems.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:akyushkumar@gmail.com" class="btn btn-primary">akyushkumar@gmail.com ↗</a>
+      <a href="https://linkedin.com/in/akyushkumar" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+      <a href="https://github.com/Akyushumar" target="_blank" class="btn btn-outline">GitHub ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="inner">
+    <p>Ayush Kumar · IIT Kharagpur · 2027</p>
+    <p>Built with HTML · Deployed on GitHub Pages</p>
+  </div>
+</footer>
+
 </body>
-</html> 
+</html>
